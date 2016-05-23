@@ -14,7 +14,7 @@ var end_stage = new PIXI.Container();
 
 // score board
 var score = 0;
-var score_board = new PIXI.Text("Home: " + score + "    Away: 0", {font:"20px Arial", fill:"white"});
+var score_board = new PIXI.Text("Home: " + score + "    Away: infinity", {font:"20px Arial", fill:"white"});
 score_board.position.x = 125;
 score_board.position.y = 0;
 
@@ -103,6 +103,24 @@ stage.addChild(bball_sprite);
 stage.addChild(hoop_sprite);
 stage.addChild(score_board);
 
+// create credits sprite
+var credits_texture = new PIXI.Texture.fromImage("credits_sprite.png");
+var credits_sprite = new PIXI.Sprite(credits_texture);
+hoop_sprite.anchor.x = 0.5;
+hoop_sprite.anchor.y = 0.5;
+hoop_sprite.position.x = 200;
+hoop_sprite.position.y = 200;
+credits_stage.addChild(credits_sprite);
+
+
+// create tutorial sprite
+var tutorial_texture = new PIXI.Texture.fromImage("tutorial_sprite.png");
+var tutorial_sprite = new PIXI.Sprite(tutorial_texture);
+hoop_sprite.anchor.x = 0.5;
+hoop_sprite.anchor.y = 0.5;
+hoop_sprite.position.x = 200;
+hoop_sprite.position.y = 200;
+tutorial_stage.addChild(tutorial_sprite);
 
 //current stage
 var current_stage = title_stage;
@@ -119,7 +137,7 @@ animate();
 
 function checkStart() {
     if (current_stage == title_stage){
-        setTimeout(function(){current_stage = menu_stage;}, 3000);
+        setTimeout(function(){current_stage = menu_stage;}, 1000);
     }
 }
 
@@ -140,8 +158,7 @@ function createHoop() {
   
     // move the hoop to random location
     createjs.Tween.get(hoop_sprite.position).to({x: randx, y: randy}, 500)
-    //hoop_sprite.position.x = randx;
-    //hoop_sprite.position.y = randy;
+
 }
 
 function checkPosition() {
@@ -149,7 +166,7 @@ function checkPosition() {
     if ((hoop_sprite.position.x >= bball_sprite.position.x-7 && hoop_sprite.position.x <= bball_sprite.position.x + 7) && (hoop_sprite.position.y >= bball_sprite.position.y-7 && hoop_sprite.position.y <= bball_sprite.position.y + 7)) {
         createHoop();
         score += 2;
-        score_board.setText("Home: " + score + "    Away: 0");
+        score_board.setText("Home: " + score + "    Away: infinity");
     }
 }
 
@@ -189,7 +206,10 @@ function onKeyDown(key) {
 
     if (key.keyCode === 27) {
 
+        score = 0;
+        score_board.setText("Home: " + score + "    Away: infinity");
         current_stage = menu_stage;
+
     }
 
 }
