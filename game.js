@@ -139,13 +139,14 @@ function createHoop() {
     var randy = 10 * Math.floor((Math.random() * 39) + 1);
   
     // move the hoop to random location
-    hoop_sprite.position.x = randx;
-    hoop_sprite.position.y = randy;
+    createjs.Tween.get(hoop_sprite.position).to({x: randx, y: randy}, 500)
+    //hoop_sprite.position.x = randx;
+    //hoop_sprite.position.y = randy;
 }
 
 function checkPosition() {
     // check position of ball and position of hoop for basket.  If made basket, hoop respawns in random location
-    if (hoop_sprite.position.x === bball_sprite.position.x && hoop_sprite.position.y === bball_sprite.position.y) {
+    if ((hoop_sprite.position.x >= bball_sprite.position.x-7 && hoop_sprite.position.x <= bball_sprite.position.x + 7) && (hoop_sprite.position.y >= bball_sprite.position.y-7 && hoop_sprite.position.y <= bball_sprite.position.y + 7)) {
         createHoop();
         score += 2;
         score_board.setText("Home: " + score + "    Away: 0");
