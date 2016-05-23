@@ -62,9 +62,16 @@ createHoop();
 // runs game
 animate();
 
+function checkStart() {
+    if (current_stage == title_stage){
+        setTimeout(function(){current_stage = stage;}, 3000);
+    }
+}
+
 function animate() {
 
 	requestAnimationFrame(animate); // constantly calls animate
+    checkStart();
 	bball_sprite.rotation += 0.1; // rotate ball
 	renderer.render(current_stage); // render stage
 	checkPosition(); // check if made basket
@@ -124,8 +131,5 @@ function onKeyDown(key) {
         }
     }
 
-    if (key.keyCode == 13) {
-        current_stage = stage;
-    }
 }
 
