@@ -5,6 +5,7 @@ gameport.appendChild(renderer.view);
 
 // create stage
 var stage = new PIXI.Container();
+var title_stage = new PIXI.Container();
 
 // score board
 var score = 0;
@@ -13,6 +14,13 @@ score_board.position.x = 125;
 score_board.position.y = 0;
 
 //create sprites
+var title_texture = new PIXI.Texture.fromImage("title_sprite.png");
+var title_sprite = new PIXI.Sprite(title_texture);
+title_sprite.anchor.x = 0.5;
+title_sprite.anchor.y = 0.5;
+title_sprite.position.x = 200;
+title_sprite.position.y = 200;
+
 var background_texture = new PIXI.Texture.fromImage("space_sprite.png");
 var background_sprite = new PIXI.Sprite(background_texture);
 background_sprite.anchor.x = 0.5;
@@ -36,10 +44,14 @@ hoop_sprite.position.y = 100;
 
 
 // add sprites as children to stage
+title_stage.addChild(title_sprite);
 stage.addChild(background_sprite);
 stage.addChild(bball_sprite);
 stage.addChild(hoop_sprite);
 stage.addChild(score_board);
+
+//current stage
+var current_stage = title_stage;
 
 // listiner for keyboard input
 document.addEventListener('keydown', onKeyDown);
@@ -54,7 +66,7 @@ function animate() {
 
 	requestAnimationFrame(animate); // constantly calls animate
 	bball_sprite.rotation += 0.1; // rotate ball
-	renderer.render(stage); // render stage
+	renderer.render(current_stage); // render stage
 	checkPosition(); // check if made basket
 }
 
@@ -110,6 +122,10 @@ function onKeyDown(key) {
         if (bball_sprite.position.x != renderer.width - 10) {
             bball_sprite.position.x += 10;
         }
+    }
+
+    if (key.keyCode == 13) {
+        current_stage = stage;
     }
 }
 
