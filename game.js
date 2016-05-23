@@ -10,13 +10,33 @@ var title_stage = new PIXI.Container();
 var menu_stage = new PIXI.Container();
 var tutorial_stage = new PIXI.Container();
 var credits_stage = new PIXI.Container();
-var end_stage = new PIXI.Container();
+var win_stage = new PIXI.Container();
+var lose_stage = new PIXI.Container();
 
-// score board
-var score = 0;
+// score board and timer
+var score = -6;
 var score_board = new PIXI.Text("Home: " + score + "    Away: infinity", {font:"20px Arial", fill:"white"});
 score_board.position.x = 125;
 score_board.position.y = 0;
+;
+
+var time = 30;
+var time_board = new PIXI.Text("Time: " + time, {font:"20px Arial", fill:"white"});
+time_board.position.x = 30;
+time_board.position.y = 0;
+
+var timer = setInterval(checkTime, 1000)
+
+function checkTime(){
+    time -= 1;
+    time_board.setText("Time: " + time, {font:"20px Arial", fill:"white"});
+    if (time == 0 && score == 0){
+        current_stage = win_stage;
+    }
+    if (time == 0 && score != 0){
+        current_stage = lose_stage;
+    }
+}
 
 
 // create title sprites
@@ -93,15 +113,14 @@ bball_sprite.position.y = 200;
 
 var hoop_texture = PIXI.Texture.fromImage("hoop_sprite.png");
 var hoop_sprite = new PIXI.Sprite(hoop_texture);
-hoop_sprite.anchor.x = 0.5;
-hoop_sprite.anchor.y = 0.5;
-hoop_sprite.position.x = 100;
-hoop_sprite.position.y = 100;
+// hoop_sprite.position.x = 100;
+// hoop_sprite.position.y = 100;
 
 stage.addChild(background_sprite);
 stage.addChild(bball_sprite);
 stage.addChild(hoop_sprite);
 stage.addChild(score_board);
+stage.addChild(time_board);
 
 // create credits sprite
 var credits_texture = new PIXI.Texture.fromImage("credits_sprite.png");
@@ -112,6 +131,23 @@ hoop_sprite.position.x = 200;
 hoop_sprite.position.y = 200;
 credits_stage.addChild(credits_sprite);
 
+// create win and lose sprites
+
+var win_texture = new PIXI.Texture.fromImage("win_sprite.png");
+var win_sprite = new PIXI.Sprite(win_texture);
+win_sprite.anchor.x = 0.5;
+win_sprite.anchor.y = 0.5;
+win_sprite.position.x = 200;
+win_sprite.position.y = 200;
+win_stage.addChild(win_sprite);
+
+var lose_texture = new PIXI.Texture.fromImage("lose_sprite.png");
+var lose_sprite = new PIXI.Sprite(lose_texture);
+lose_sprite.anchor.x = 0.5;
+lose_sprite.anchor.y = 0.5;
+lose_sprite.position.x = 200;
+lose_sprite.position.y = 200;
+lose_stage.addChild(lose_sprite);
 
 // create tutorial sprite
 var tutorial_texture = new PIXI.Texture.fromImage("tutorial_sprite.png");
@@ -135,8 +171,12 @@ createHoop();
 animate();
 
 
+
+
+
+
 function checkStart() {
-    if (current_stage == title_stage){
+    if (current_stage === title_stage){
         setTimeout(function(){current_stage = menu_stage;}, 1000);
     }
 }
@@ -208,6 +248,9 @@ function onKeyDown(key) {
 
         score = 0;
         score_board.setText("Home: " + score + "    Away: infinity");
+        time = 30;
+        time_board.setText("Time: " + time, {font:"20px Arial", fill:"white"});
+
         current_stage = menu_stage;
 
     }
