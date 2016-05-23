@@ -3,9 +3,14 @@ var gameport = document.getElementById("gameport");
 var renderer = PIXI.autoDetectRenderer(400, 400);
 gameport.appendChild(renderer.view);
 
+var interactive = true;
 // create stage
 var stage = new PIXI.Container();
 var title_stage = new PIXI.Container();
+var menu_stage = new PIXI.Container();
+var tutorial_stage = new PIXI.Container();
+var credits_stage = new PIXI.Container();
+var end_stage = new PIXI.Container();
 
 // score board
 var score = 0;
@@ -13,7 +18,8 @@ var score_board = new PIXI.Text("Home: " + score + "    Away: 0", {font:"20px Ar
 score_board.position.x = 125;
 score_board.position.y = 0;
 
-//create sprites
+
+// create title sprites
 var title_texture = new PIXI.Texture.fromImage("title_sprite.png");
 var title_sprite = new PIXI.Sprite(title_texture);
 title_sprite.anchor.x = 0.5;
@@ -21,6 +27,56 @@ title_sprite.anchor.y = 0.5;
 title_sprite.position.x = 200;
 title_sprite.position.y = 200;
 
+title_stage.addChild(title_sprite);
+
+
+// create menu mouse handlers
+function gameMouseHandler(e){
+    current_stage = stage;
+}
+
+function tutorialMouseHandler(e){
+    current_stage = tutorial_stage;
+}
+
+function creditsMouseHandler(e){
+    current_stage = credits_stage;
+}
+
+
+// create menu sprites
+var menu_title_texture = new PIXI.Texture.fromImage("menu_title_sprite.png");
+var menu_title_sprite = new PIXI.Sprite(menu_title_texture);
+menu_title_sprite.position.x = 150;
+menu_title_sprite.position.y = 10;
+
+var menu_tutorial_texture = new PIXI.Texture.fromImage("menu_tutorial_sprite.png");
+var menu_tutorial_sprite = new PIXI.Sprite(menu_tutorial_texture);
+menu_tutorial_sprite.position.x = 150;
+menu_tutorial_sprite.position.y = 100;
+menu_tutorial_sprite.interactive = true;
+menu_tutorial_sprite.on('mousedown', tutorialMouseHandler);
+
+var menu_game_texture = new PIXI.Texture.fromImage("menu_game_sprite.png");
+var menu_game_sprite = new PIXI.Sprite(menu_game_texture);
+menu_game_sprite.position.x = 150;
+menu_game_sprite.position.y = 200;
+menu_game_sprite.interactive = true;
+menu_game_sprite.on('mousedown', gameMouseHandler);
+
+var menu_credits_texture = new PIXI.Texture.fromImage("menu_credits_sprite.png");
+var menu_credits_sprite = new PIXI.Sprite(menu_credits_texture);
+menu_credits_sprite.position.x = 150;
+menu_credits_sprite.position.y = 300;
+menu_credits_sprite.interactive = true;
+menu_credits_sprite.on('mousedown', creditsMouseHandler);
+
+menu_stage.addChild(menu_credits_sprite);
+menu_stage.addChild(menu_title_sprite);
+menu_stage.addChild(menu_tutorial_sprite);
+menu_stage.addChild(menu_game_sprite);
+
+// create game sprites
 var background_texture = new PIXI.Texture.fromImage("space_sprite.png");
 var background_sprite = new PIXI.Sprite(background_texture);
 background_sprite.anchor.x = 0.5;
@@ -42,13 +98,11 @@ hoop_sprite.anchor.y = 0.5;
 hoop_sprite.position.x = 100;
 hoop_sprite.position.y = 100;
 
-
-// add sprites as children to stage
-title_stage.addChild(title_sprite);
 stage.addChild(background_sprite);
 stage.addChild(bball_sprite);
 stage.addChild(hoop_sprite);
 stage.addChild(score_board);
+
 
 //current stage
 var current_stage = title_stage;
@@ -62,9 +116,10 @@ createHoop();
 // runs game
 animate();
 
+
 function checkStart() {
     if (current_stage == title_stage){
-        setTimeout(function(){current_stage = stage;}, 3000);
+        setTimeout(function(){current_stage = menu_stage;}, 3000);
     }
 }
 
@@ -129,6 +184,11 @@ function onKeyDown(key) {
         if (bball_sprite.position.x != renderer.width - 10) {
             bball_sprite.position.x += 10;
         }
+    }
+
+    if (key.keyCode === 27) {
+
+        current_stage = menu_stage;
     }
 
 }
