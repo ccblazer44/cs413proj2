@@ -1,1 +1,2 @@
-# cs413proj2
+# cs413proj1
+Minimalism
