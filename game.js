@@ -193,13 +193,38 @@ function ready(){
     frames.push(PIXI.Texture.fromFrame("basketball_angel_sprite1.png"))
     frames.push(PIXI.Texture.fromFrame("basketball_angel_sprite2.png"))
     frames.push(PIXI.Texture.fromFrame("basketball_angel_sprite3.png"))
+
     runner = new PIXI.extras.MovieClip(frames);
-    runner.position.x = 300;
-    runner.position.y = 300;
+    runner.position.x = 50;
+    runner.position.y = 10;
     runner.animationSpeed = 0.1;
     runner.play();
     win_stage.addChild(runner);
-    createjs.Tween.get(runner.position).to({x: 100, y: 100}, 5000)
+
+    runner2 = new PIXI.extras.MovieClip(frames);
+    runner2.position.x = 320;
+    runner2.position.y = 100;
+    runner2.animationSpeed = 0.1;
+    runner2.play();
+    win_stage.addChild(runner2);
+    
+    
+    
+}
+function moveAngels(){
+    if (runner.position.x == 50){
+        createjs.Tween.get(runner.position).to({x: 350, y: 10}, 5000)
+    }
+    if (runner.position.x == 350){
+         createjs.Tween.get(runner.position).to({x: 50, y: 10}, 5000)
+    }
+
+    if (runner2.position.y == 350){
+        createjs.Tween.get(runner2.position).to({x: 320, y: 100}, 5000, createjs.Ease.cubicInOut)
+    }
+    if (runner2.position.y == 100){
+         createjs.Tween.get(runner2.position).to({x: 320, y: 350}, 5000, createjs.Ease.cubicInOut)
+    }
 }
 
 
@@ -242,6 +267,7 @@ function animate() {
 	bball_sprite.rotation += 0.1; // rotate ball
 	renderer.render(current_stage); // render stage
 	checkPosition(); // check if made basket
+    moveAngels();
 }
 
 function createHoop() {
