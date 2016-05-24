@@ -207,8 +207,7 @@ function ready(){
     runner2.animationSpeed = 0.1;
     runner2.play();
     win_stage.addChild(runner2);
-    
-    //test comment
+
     
 }
 function moveAngels(){
