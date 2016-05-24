@@ -3,24 +3,7 @@ var gameport = document.getElementById("gameport");
 var renderer = PIXI.autoDetectRenderer(400, 400);
 gameport.appendChild(renderer.view);
 
-PIXI.loader
-    .add("assets.json")
-    .load(ready);
 
-
-function ready(){
-    var frames = [];
-    frames.push(PIXI.Texture.fromFrame("basketball_angel_sprite1.png"))
-    frames.push(PIXI.Texture.fromFrame("basketball_angel_sprite2.png"))
-    frames.push(PIXI.Texture.fromFrame("basketball_angel_sprite3.png"))
-    runner = new PIXI.extras.MovieClip(frames);
-    runner.position.x = 300;
-    runner.position.y = 300;
-    runner.animationSpeed = 0.1;
-    runner.play();
-    stage.addChild(runner);
-    createjs.Tween.get(runner.position).to({x: 100, y: 100}, 5000)
-}
 
 
 
@@ -160,6 +143,36 @@ win_sprite.position.x = 200;
 win_sprite.position.y = 200;
 win_stage.addChild(win_sprite);
 
+var basketball_halo_texture = new PIXI.Texture.fromImage("basketball_halo_sprite.png");
+var basketball_halo_sprite = new PIXI.Sprite(basketball_halo_texture);
+basketball_halo_sprite.scale.x = 2;
+basketball_halo_sprite.scale.y = 2;
+basketball_halo_sprite.anchor.x = 0.5;
+basketball_halo_sprite.anchor.y = 0.5;
+basketball_halo_sprite.position.x = 100;
+basketball_halo_sprite.position.y = 300;
+win_stage.addChild(basketball_halo_sprite);
+
+var basketball_halo_girl_texture = new PIXI.Texture.fromImage("basketball_halo_girl_sprite.png");
+var basketball_halo_girl_sprite = new PIXI.Sprite(basketball_halo_girl_texture);
+basketball_halo_girl_sprite.scale.x = 1.75;
+basketball_halo_girl_sprite.scale.y = 1.75;
+basketball_halo_girl_sprite.anchor.x = 0.5;
+basketball_halo_girl_sprite.anchor.y = 0.5;
+basketball_halo_girl_sprite.position.x = 60;
+basketball_halo_girl_sprite.position.y = 300;
+win_stage.addChild(basketball_halo_girl_sprite);
+
+
+var basketball_halo_girl_sprite2 = new PIXI.Sprite(basketball_halo_girl_texture);
+basketball_halo_girl_sprite2.scale.x = 1.75;
+basketball_halo_girl_sprite2.scale.y = 1.75;
+basketball_halo_girl_sprite2.anchor.x = 0.5;
+basketball_halo_girl_sprite2.anchor.y = 0.5;
+basketball_halo_girl_sprite2.position.x = 140;
+basketball_halo_girl_sprite2.position.y = 300;
+win_stage.addChild(basketball_halo_girl_sprite2);
+
 var lose_texture = new PIXI.Texture.fromImage("lose_sprite.png");
 var lose_sprite = new PIXI.Sprite(lose_texture);
 lose_sprite.anchor.x = 0.5;
@@ -167,6 +180,28 @@ lose_sprite.anchor.y = 0.5;
 lose_sprite.position.x = 200;
 lose_sprite.position.y = 200;
 lose_stage.addChild(lose_sprite);
+
+
+
+PIXI.loader
+    .add("assets.json")
+    .load(ready);
+
+
+function ready(){
+    var frames = [];
+    frames.push(PIXI.Texture.fromFrame("basketball_angel_sprite1.png"))
+    frames.push(PIXI.Texture.fromFrame("basketball_angel_sprite2.png"))
+    frames.push(PIXI.Texture.fromFrame("basketball_angel_sprite3.png"))
+    runner = new PIXI.extras.MovieClip(frames);
+    runner.position.x = 300;
+    runner.position.y = 300;
+    runner.animationSpeed = 0.1;
+    runner.play();
+    win_stage.addChild(runner);
+    createjs.Tween.get(runner.position).to({x: 100, y: 100}, 5000)
+}
+
 
 // create tutorial sprite
 var tutorial_texture = new PIXI.Texture.fromImage("tutorial_sprite.png");
@@ -176,6 +211,9 @@ hoop_sprite.anchor.y = 0.5;
 hoop_sprite.position.x = 200;
 hoop_sprite.position.y = 200;
 tutorial_stage.addChild(tutorial_sprite);
+
+
+
 
 //current stage
 var current_stage = title_stage;
