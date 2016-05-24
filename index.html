@@ -1,15 +1,29 @@
 <html>
 	<head>
-		<title>CS 413 - Project 1</title>
+		<title>CS 413 - Project 2</title>
 	</head>
 	<body>
 
-		<h1>Sisyphus' Basketball</h1>
+		<h1>Sisyphus Ball 2.0</h1>
 		<div id="gameport"></div>
 
-		<h1>Instructions</h1>
-		<p>Control the ball with WASD or arrow keys.  Put the ball into the hoop!</p>
+		<h1>Backstory</h1>
+		<p>Press ESC at any time to reset the timer/score and go back to the main menu.</p>
 		<p>You were just a simple basketball... until you bounced off the rim at the buzzer to lose the game winning shot game 7 of the NBA finals.  Now you are doomed to make buckets for eternity.</p>
+		<p>Now your only goal is to score more baskets than the basketball devil, but he has infinite points... what are you going to do?</p>
+
+
+		<h1>Version Notes</h1>
+		<p>Version 2.0: <ul>
+			<li>Added title , menu, instructions, and credits screens.</li>
+			<li>Improved collision between basket and ball.</li>
+			<li>Added timer.</li>
+			<li>Added moving sprites using spritesheets.</li>
+			<li>Added win and loss conditions, including awesome screens.</li>
+			<li>Added tweening movement for sprites.</li>
+			<li>Added sound.</li>
+			<li>Added puzzling win condition.</li>
+			<li>Old version can be found <a href="http://dana.ucc.nau.edu/cb367/cs413/project_1/">here</a></li></ul></p>
 
 		<h1>Comments</h1>
 		<div id="disqus_thread"></div>
@@ -23,6 +37,7 @@
 		</script>
 
 		<script src="pixi.js"></script>
+		<script src="pixi-audio.js"></script>
 		<script src="tweenjs.min.js"></script>
 		<script src="game.js"></script>
 

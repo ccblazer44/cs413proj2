@@ -3,8 +3,60 @@ var gameport = document.getElementById("gameport");
 var renderer = PIXI.autoDetectRenderer(400, 400);
 gameport.appendChild(renderer.view);
 
+PIXI.loader
+    .add("assets.json")
+    .add("swish.mp3")
+    .add("hint.mp3")
+    .add("lose.mp3")
+    .add("win.mp3")
+    .add("itsme.mp3")
+    .load(ready);
 
 
+
+var swish;
+var hint;
+var lose;
+var itsme;
+
+function ready(){
+
+    
+
+    var frames = [];
+    frames.push(PIXI.Texture.fromFrame("basketball_angel_sprite1.png"));
+    frames.push(PIXI.Texture.fromFrame("basketball_angel_sprite2.png"));
+    frames.push(PIXI.Texture.fromFrame("basketball_angel_sprite3.png"));
+
+    runner = new PIXI.extras.MovieClip(frames);
+    runner.position.x = 50;
+    runner.position.y = 10;
+    runner.animationSpeed = 0.1;
+    runner.play();
+    win_stage.addChild(runner);
+
+    runner2 = new PIXI.extras.MovieClip(frames);
+    runner2.position.x = 320;
+    runner2.position.y = 100;
+    runner2.animationSpeed = 0.1;
+    runner2.play();
+    win_stage.addChild(runner2);
+
+    runner3 = new PIXI.extras.MovieClip(frames);
+    runner3.position.x = 50;
+    runner3.position.y = 350;
+    runner3.animationSpeed = 0.1;
+    runner3.play();
+    lose_stage.addChild(runner3);  
+
+    swish = PIXI.audioManager.getAudio("swish.mp3");
+    hint = PIXI.audioManager.getAudio("hint.mp3");
+    lose = PIXI.audioManager.getAudio("lose.mp3");
+    win = PIXI.audioManager.getAudio("win.mp3");
+    itsme = PIXI.audioManager.getAudio("itsme.mp3");
+
+
+}
 
 
 var interactive = true;
@@ -18,7 +70,7 @@ var win_stage = new PIXI.Container();
 var lose_stage = new PIXI.Container();
 
 // score board and timer
-var score = -6;
+var score = 0;
 var score_board = new PIXI.Text("Home: " + score + "    Away: infinity", {font:"20px Arial", fill:"white"});
 score_board.position.x = 125;
 score_board.position.y = 0;
@@ -36,9 +88,11 @@ function checkTime(){
     time_board.setText("Time: " + time, {font:"20px Arial", fill:"white"});
     if (time == 0 && score == 0){
         current_stage = win_stage;
+        win.play();
     }
     if (time == 0 && score != 0){
         current_stage = lose_stage;
+        lose.play();
     }
 }
 
@@ -65,6 +119,7 @@ function tutorialMouseHandler(e){
 
 function creditsMouseHandler(e){
     current_stage = credits_stage;
+    itsme.play();
 }
 
 
@@ -183,33 +238,7 @@ lose_stage.addChild(lose_sprite);
 
 
 
-PIXI.loader
-    .add("assets.json")
-    .load(ready);
 
-
-function ready(){
-    var frames = [];
-    frames.push(PIXI.Texture.fromFrame("basketball_angel_sprite1.png"))
-    frames.push(PIXI.Texture.fromFrame("basketball_angel_sprite2.png"))
-    frames.push(PIXI.Texture.fromFrame("basketball_angel_sprite3.png"))
-
-    runner = new PIXI.extras.MovieClip(frames);
-    runner.position.x = 50;
-    runner.position.y = 10;
-    runner.animationSpeed = 0.1;
-    runner.play();
-    win_stage.addChild(runner);
-
-    runner2 = new PIXI.extras.MovieClip(frames);
-    runner2.position.x = 320;
-    runner2.position.y = 100;
-    runner2.animationSpeed = 0.1;
-    runner2.play();
-    win_stage.addChild(runner2);
-
-    
-}
 function moveAngels(){
     if (runner.position.x == 50){
         createjs.Tween.get(runner.position).to({x: 350, y: 10}, 5000)
@@ -286,13 +315,16 @@ function checkPosition() {
     if ((hoop_sprite.position.x >= bball_sprite.position.x-7 && hoop_sprite.position.x <= bball_sprite.position.x + 7) && (hoop_sprite.position.y >= bball_sprite.position.y-7 && hoop_sprite.position.y <= bball_sprite.position.y + 7)) {
 
         createHoop();
+        swish.play();
         score += 2;
         score_board.setText("Home: " + score + "    Away: infinity");
+
 
     }
 }
 
 function onKeyDown(key) {
+
 
 	// if statements for WASD and arrow keys to move the ball
     if (key.keyCode === 87 || key.keyCode === 38) {
@@ -334,6 +366,12 @@ function onKeyDown(key) {
         time_board.setText("Time: " + time, {font:"20px Arial", fill:"white"});
 
         current_stage = menu_stage;
+
+    }
+
+    if (key.keyCode === 72 && current_stage === lose_stage) {
+
+        hint.play();
 
     }
 
