@@ -3,6 +3,27 @@ var gameport = document.getElementById("gameport");
 var renderer = PIXI.autoDetectRenderer(400, 400);
 gameport.appendChild(renderer.view);
 
+PIXI.loader
+    .add("assets.json")
+    .load(ready);
+
+
+function ready(){
+    var frames = [];
+    frames.push(PIXI.Texture.fromFrame("basketball_angel_sprite1.png"))
+    frames.push(PIXI.Texture.fromFrame("basketball_angel_sprite2.png"))
+    frames.push(PIXI.Texture.fromFrame("basketball_angel_sprite3.png"))
+    runner = new PIXI.extras.MovieClip(frames);
+    runner.position.x = 300;
+    runner.position.y = 300;
+    runner.animationSpeed = 0.1;
+    runner.play();
+    stage.addChild(runner);
+    createjs.Tween.get(runner.position).to({x: 100, y: 100}, 5000)
+}
+
+
+
 var interactive = true;
 // create stage
 var stage = new PIXI.Container();
@@ -113,8 +134,7 @@ bball_sprite.position.y = 200;
 
 var hoop_texture = PIXI.Texture.fromImage("hoop_sprite.png");
 var hoop_sprite = new PIXI.Sprite(hoop_texture);
-// hoop_sprite.position.x = 100;
-// hoop_sprite.position.y = 100;
+
 
 stage.addChild(background_sprite);
 stage.addChild(bball_sprite);
@@ -132,7 +152,6 @@ hoop_sprite.position.y = 200;
 credits_stage.addChild(credits_sprite);
 
 // create win and lose sprites
-
 var win_texture = new PIXI.Texture.fromImage("win_sprite.png");
 var win_sprite = new PIXI.Sprite(win_texture);
 win_sprite.anchor.x = 0.5;
@@ -172,9 +191,6 @@ animate();
 
 
 
-
-
-
 function checkStart() {
     if (current_stage === title_stage){
         setTimeout(function(){current_stage = menu_stage;}, 1000);
@@ -201,12 +217,15 @@ function createHoop() {
 
 }
 
+
 function checkPosition() {
     // check position of ball and position of hoop for basket.  If made basket, hoop respawns in random location
     if ((hoop_sprite.position.x >= bball_sprite.position.x-7 && hoop_sprite.position.x <= bball_sprite.position.x + 7) && (hoop_sprite.position.y >= bball_sprite.position.y-7 && hoop_sprite.position.y <= bball_sprite.position.y + 7)) {
+
         createHoop();
         score += 2;
         score_board.setText("Home: " + score + "    Away: infinity");
+
     }
 }
 

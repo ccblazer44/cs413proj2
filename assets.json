@@ -1,0 +1,39 @@
+{"frames": {
+
+"basketball_angel_sprite1.png":
+{
+	"frame": {"x":40,"y":1,"w":47,"h":28},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":10,"w":47,"h":28},
+	"sourceSize": {"w":50,"h":50},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"basketball_angel_sprite2.png":
+{
+	"frame": {"x":89,"y":1,"w":42,"h":28},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":3,"y":10,"w":42,"h":28},
+	"sourceSize": {"w":50,"h":50},
+	"pivot": {"x":0.5,"y":0.5}
+},
+"basketball_angel_sprite3.png":
+{
+	"frame": {"x":1,"y":1,"w":37,"h":30},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":5,"y":10,"w":37,"h":30},
+	"sourceSize": {"w":50,"h":50},
+	"pivot": {"x":0.5,"y":0.5}
+}},
+"meta": {
+	"app": "http://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "assets.png",
+	"format": "RGBA8888",
+	"size": {"w":132,"h":32},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:6bd57bcfd55eefe355088412793a7000:a0da04acd87de74d56e6a04717408c86:a759b6bbc8381ac9c472b28f589ad0d6$"
+}
+}
